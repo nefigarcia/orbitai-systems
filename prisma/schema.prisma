@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Lead {
+  id                     String     @id @default(cuid())
+  name                   String
+  email                  String
+  phone                  String?
+  company                String?
+  website                String?
+  industry               String?
+  companySize            String?
+  serviceInterest        String?
+  currentChallenge       String?    @db.Text
+  budgetRange            String?
+  preferredContactMethod String?
+  status                 LeadStatus @default(NEW)
+  source                 String?    @default("website")
+  notes                  String?    @db.Text
+  aiSummary              String?    @db.Text
+  aiOpportunities        String?    @db.Text
+  createdAt              DateTime   @default(now())
+  updatedAt              DateTime   @updatedAt
+
+  activityLogs ActivityLog[]
+
+  @@map("leads")
+}
+
+model ContactSubmission {
+  id                     String   @id @default(cuid())
+  name                   String
+  email                  String
+  phone                  String?
+  company                String?
+  website                String?
+  industry               String?
+  companySize            String?
+  serviceInterest        String?
+  currentChallenge       String?  @db.Text
+  budgetRange            String?
+  preferredContactMethod String?
+  ipAddress              String?
+  createdAt              DateTime @default(now())
+
+  @@map("contact_submissions")
+}
+
+model CaseStudy {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  client      String
+  industry    String?
+  service     String?
+  challenge   String?  @db.Text
+  solution    String?  @db.Text
+  results     String?  @db.Text
+  metrics     Json?
+  imageUrl    String?
+  featured    Boolean  @default(false)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("case_studies")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  tagline     String?
+  description String?  @db.Text
+  url         String?
+  logoUrl     String?
+  features    Json?
+  published   Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("products")
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  tagline     String?
+  description String?  @db.Text
+  features    Json?
+  icon        String?
+  published   Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("services")
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  leadId    String?
+  userId    String?
+  action    String
+  details   String?  @db.Text
+  createdAt DateTime @default(now())
+
+  lead Lead? @relation(fields: [leadId], references: [id], onDelete: SetNull)
+
+  @@map("activity_logs")
+}
+
+enum UserRole {
+  ADMIN
+  VIEWER
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  PROPOSAL_SENT
+  WON
+  LOST
+}
