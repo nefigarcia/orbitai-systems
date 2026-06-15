@@ -21,85 +21,102 @@ export function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handler);
+    const handler = () => setScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+  useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         scrolled
-          ? "bg-[oklch(0.08_0.01_240/90%)] backdrop-blur-xl border-b border-white/5"
+          ? "bg-[oklch(0.09_0.01_240/85%)] backdrop-blur-2xl border-b border-white/[0.06] shadow-[0_1px_0_oklch(0.72_0.18_195/8%)]"
           : "bg-transparent"
       )}
     >
+      {/* Teal top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[oklch(0.72_0.18_195/40%)] to-transparent" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-16 lg:h-18">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
             <div className="relative w-8 h-8">
-              <div className="absolute inset-0 rounded-full border border-teal/40 group-hover:border-teal/80 transition-colors" />
-              <div className="absolute inset-1.5 rounded-full bg-teal/20 group-hover:bg-teal/30 transition-colors" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-teal" />
-              </div>
+              {/* Outer ring */}
+              <div className="absolute inset-0 rounded-full border border-teal/30 group-hover:border-teal/70 transition-all duration-300" />
+              {/* Orbit path */}
+              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="7" stroke="oklch(0.72 0.18 195 / 15%)" strokeWidth="1" strokeDasharray="2 3"/>
+                {/* Orbit dot */}
+                <circle cx="23" cy="16" r="2" fill="oklch(0.72 0.18 195)" className="origin-center" />
+              </svg>
+              {/* Center */}
+              <div className="absolute inset-[9px] rounded-full bg-teal/25 group-hover:bg-teal/40 transition-colors duration-300" />
             </div>
-            <div className="flex flex-col leading-none">
-              <span className="text-white font-semibold text-sm tracking-tight">OrbitAI</span>
-              <span className="text-[10px] text-muted-foreground tracking-widest uppercase">Systems</span>
+            <div className="flex flex-col leading-none gap-0.5">
+              <span className="text-white font-semibold text-[13px] tracking-tight">OrbitAI</span>
+              <span className="text-[9px] text-muted-foreground tracking-[0.2em] uppercase">Systems</span>
             </div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-teal",
-                  pathname === link.href || pathname.startsWith(link.href + "/")
-                    ? "text-teal"
-                    : "text-muted-foreground"
-                )}
-              >
-                {link.label}
-              </Link>
-            ))}
+          <nav className="hidden lg:flex items-center gap-1">
+            {NAV_LINKS.map((link) => {
+              const active = pathname === link.href || pathname.startsWith(link.href + "/");
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                    active
+                      ? "text-teal"
+                      : "text-muted-foreground hover:text-white hover:bg-white/5"
+                  )}
+                >
+                  {link.label}
+                  {active && (
+                    <motion.div
+                      layoutId="nav-indicator"
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-px bg-teal rounded-full"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Desktop CTAs */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2">
             <a
               href={AURIVA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-teal transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-teal hover:bg-white/4 transition-all duration-200"
             >
-              <span>Free AI Audit</span>
+              Free AI Audit
               <ExternalLink className="w-3 h-3" />
             </a>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-teal text-[oklch(0.08_0.01_240)] text-sm font-semibold hover:bg-teal/90 transition-all teal-glow-sm"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-teal text-[oklch(0.08_0.01_240)] text-sm font-semibold hover:bg-[oklch(0.78_0.18_195)] transition-all duration-200 teal-glow-xs shadow-[0_1px_0_oklch(1_0_0/20%)_inset]"
             >
               Book Consultation
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-muted-foreground hover:text-white transition-colors"
+            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-white/10 text-muted-foreground hover:text-white hover:border-white/20 transition-all"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
         </div>
       </div>
@@ -108,38 +125,42 @@ export function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="lg:hidden bg-[oklch(0.10_0.01_240)] border-b border-white/5"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
+            className="lg:hidden glass-heavy border-b border-white/5"
           >
-            <div className="max-w-7xl mx-auto px-4 py-6 flex flex-col gap-4">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "text-base font-medium py-2 transition-colors",
-                    pathname === link.href ? "text-teal" : "text-muted-foreground hover:text-white"
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="pt-4 border-t border-white/5 flex flex-col gap-3">
+            <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col gap-1">
+              {NAV_LINKS.map((link) => {
+                const active = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                      active
+                        ? "bg-teal/10 text-teal border border-teal/15"
+                        : "text-muted-foreground hover:text-white hover:bg-white/5"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+              <div className="mt-3 pt-3 border-t border-white/5 flex flex-col gap-2">
                 <a
                   href={AURIVA_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:text-teal transition-colors flex items-center gap-1.5"
+                  className="px-3 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-teal transition-colors flex items-center gap-2"
                 >
-                  <span>Free AI Audit</span>
-                  <ExternalLink className="w-3 h-3" />
+                  Free AI Audit <ExternalLink className="w-3 h-3" />
                 </a>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center px-4 py-3 rounded-lg bg-teal text-[oklch(0.08_0.01_240)] text-sm font-semibold"
+                  className="flex items-center justify-center px-4 py-3 rounded-lg bg-teal text-[oklch(0.08_0.01_240)] text-sm font-semibold"
                 >
                   Book Consultation
                 </Link>

@@ -23,45 +23,49 @@ const FOOTER_LINKS = {
 
 export function Footer() {
   return (
-    <footer className="bg-graphite border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+    <footer className="relative bg-graphite">
+      {/* Top gradient border */}
+      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="relative w-8 h-8">
-                <div className="absolute inset-0 rounded-full border border-teal/40" />
-                <div className="absolute inset-1.5 rounded-full bg-teal/20" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-teal" />
-                </div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="relative w-8 h-8 flex-shrink-0">
+                <div className="absolute inset-0 rounded-full border border-teal/30" />
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="7" stroke="oklch(0.72 0.18 195 / 15%)" strokeWidth="1" strokeDasharray="2 3"/>
+                  <circle cx="23" cy="16" r="2" fill="oklch(0.72 0.18 195)" />
+                </svg>
+                <div className="absolute inset-[9px] rounded-full bg-teal/20" />
               </div>
-              <div className="flex flex-col leading-none">
-                <span className="text-white font-semibold text-sm tracking-tight">OrbitAI Systems</span>
-                <span className="text-[10px] text-muted-foreground tracking-widest uppercase">Intelligent Business Automation</span>
+              <div className="flex flex-col leading-none gap-0.5">
+                <span className="text-white font-semibold text-[13px] tracking-tight">OrbitAI Systems</span>
+                <span className="text-[9px] text-muted-foreground tracking-[0.2em] uppercase">Intelligent Business Automation</span>
               </div>
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
+
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-[260px] mb-6">
               We design AI agents, data dashboards, and enterprise integrations that help businesses
               automate work, connect systems, and scale operations.
             </p>
-            <div className="mt-6">
-              <a
-                href={AURIVA_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs text-teal border border-teal/30 rounded-lg px-3 py-2 hover:bg-teal/10 transition-colors"
-              >
-                <span>Try Auriva — Free AI Audit</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
+
+            <a
+              href={AURIVA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-teal/25 text-teal text-xs font-medium hover:bg-teal/8 transition-all duration-200"
+            >
+              Try Auriva — Free AI Audit
+              <ExternalLink className="w-3 h-3" />
+            </a>
           </div>
 
           {/* Links */}
           {Object.entries(FOOTER_LINKS).map(([group, links]) => (
             <div key={group}>
-              <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">{group}</h4>
+              <h4 className="text-white text-[10px] font-semibold tracking-[0.2em] uppercase mb-4">{group}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.href}>
@@ -70,15 +74,15 @@ export function Footer() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-muted-foreground hover:text-teal transition-colors flex items-center gap-1"
+                        className="text-sm text-muted-foreground hover:text-teal transition-colors duration-200 flex items-center gap-1.5"
                       >
                         {link.label}
-                        <ExternalLink className="w-3 h-3" />
+                        <ExternalLink className="w-3 h-3 opacity-50" />
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-sm text-muted-foreground hover:text-teal transition-colors"
+                        className="text-sm text-muted-foreground hover:text-white transition-colors duration-200"
                       >
                         {link.label}
                       </Link>
@@ -90,13 +94,14 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-muted-foreground">
+        {/* Bottom bar */}
+        <div className="mt-12 pt-8 border-t border-white/6 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-muted-foreground/70">
             © {new Date().getFullYear()} OrbitAI Systems. All rights reserved.
           </p>
           <Link
             href="/contact"
-            className="text-xs text-teal hover:text-teal/80 transition-colors"
+            className="text-xs text-teal/70 hover:text-teal transition-colors duration-200"
           >
             Book a Consultation →
           </Link>
