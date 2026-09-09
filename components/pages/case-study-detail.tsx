@@ -16,7 +16,7 @@ const DETAIL_CONTENT: Record<string, {
     challenge:
       "Kingspan Roofing's operations team was manually extracting data from SAP to build reports in spreadsheets. This process took days per reporting cycle, introduced errors, and left leadership without real-time visibility into production and sales performance.",
     solution:
-      "OrbitAI Systems designed a data integration architecture concept connecting SAP data sources to a centralized analytics layer, with executive dashboards delivering live KPI tracking, production throughput visibility, and automated reporting distribution.",
+      "Orbit DataWorks designed a data integration architecture concept connecting SAP data sources to a centralized analytics layer, with executive dashboards delivering live KPI tracking, production throughput visibility, and automated reporting distribution.",
     results:
       "The proposed dashboard architecture reduced reporting cycle time from days to real-time. Leadership gained access to three unified dashboards covering operations, sales pipeline, and production throughput — with data automatically refreshed from the source SAP system.",
     tags: ["SAP Integration", "Data Analytics", "Executive Dashboards", "Business Intelligence"],
@@ -41,7 +41,7 @@ const DETAIL_CONTENT: Record<string, {
   },
   "ai-business-audit": {
     challenge:
-      "Businesses consulting with OrbitAI Systems often needed weeks of discovery to identify automation opportunities. This manual audit process was a bottleneck that slowed the path from first contact to actionable insights.",
+      "Businesses consulting with Orbit DataWorks often needed weeks of discovery to identify automation opportunities. This manual audit process was a bottleneck that slowed the path from first contact to actionable insights.",
     solution:
       "Auriva — the AI Business Audit tool — was built to automate the discovery phase. It analyzes a company's described workflows, identifies automation opportunities, scores them by ROI potential, and generates a prioritized action plan.",
     results:

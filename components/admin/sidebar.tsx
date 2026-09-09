@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
@@ -20,15 +21,15 @@ export function AdminSidebar() {
       {/* Logo */}
       <div className="px-5 py-6 border-b border-white/5">
         <div className="flex items-center gap-2.5">
-          <div className="relative w-7 h-7">
-            <div className="absolute inset-0 rounded-full border border-teal/40" />
-            <div className="absolute inset-1.5 rounded-full bg-teal/20" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-teal" />
-            </div>
-          </div>
+          <Image
+            src="/Orbit.png"
+            alt="Orbit DataWorks"
+            width={28}
+            height={28}
+            className="w-7 h-7 object-contain"
+          />
           <div>
-            <p className="text-white text-xs font-semibold">OrbitAI Systems</p>
+            <p className="text-white text-xs font-semibold">Orbit DataWorks</p>
             <p className="text-[9px] text-muted-foreground tracking-widest uppercase">Admin</p>
           </div>
         </div>

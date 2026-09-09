@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { AURIVA_URL } from "@/lib/constants";
@@ -32,16 +33,15 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-5">
-              <div className="relative w-8 h-8 flex-shrink-0">
-                <div className="absolute inset-0 rounded-full border border-teal/30" />
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 32 32" fill="none">
-                  <circle cx="16" cy="16" r="7" stroke="oklch(0.72 0.18 195 / 15%)" strokeWidth="1" strokeDasharray="2 3"/>
-                  <circle cx="23" cy="16" r="2" fill="oklch(0.72 0.18 195)" />
-                </svg>
-                <div className="absolute inset-[9px] rounded-full bg-teal/20" />
-              </div>
+              <Image
+                src="/Orbit.png"
+                alt="Orbit DataWorks"
+                width={32}
+                height={32}
+                className="w-8 h-8 object-contain flex-shrink-0"
+              />
               <div className="flex flex-col leading-none gap-0.5">
-                <span className="text-white font-semibold text-[13px] tracking-tight">OrbitAI Systems</span>
+                <span className="text-white font-semibold text-[13px] tracking-tight">Orbit DataWorks</span>
                 <span className="text-[9px] text-muted-foreground tracking-[0.2em] uppercase">Intelligent Business Automation</span>
               </div>
             </div>
@@ -97,7 +97,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-white/6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground/70">
-            © {new Date().getFullYear()} OrbitAI Systems. All rights reserved.
+            © {new Date().getFullYear()} Orbit DataWorks. All rights reserved.
           </p>
           <Link
             href="/contact"

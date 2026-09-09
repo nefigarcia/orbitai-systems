@@ -16,7 +16,7 @@ export async function sendLeadNotificationEmail(data: ContactFormValues & { id: 
         <div style="font-family: Inter, sans-serif; max-width: 600px; margin: 0 auto; background: #0d1117; color: #e6edf3; padding: 32px; border-radius: 12px;">
           <div style="border-bottom: 1px solid #21262d; padding-bottom: 24px; margin-bottom: 24px;">
             <h1 style="color: #2dd4bf; font-size: 24px; margin: 0;">New Consultation Request</h1>
-            <p style="color: #8b949e; margin: 8px 0 0;">OrbitAI Systems — Lead #${data.id}</p>
+            <p style="color: #8b949e; margin: 8px 0 0;">Orbit DataWorks — Lead #${data.id}</p>
           </div>
 
           <table style="width: 100%; border-collapse: collapse;">
@@ -66,12 +66,12 @@ export async function sendLeadConfirmationEmail(data: { name: string; email: str
     await resend.emails.send({
       from: FROM,
       to: data.email,
-      subject: "We received your consultation request — OrbitAI Systems",
+      subject: "We received your consultation request — Orbit DataWorks",
       html: `
         <div style="font-family: Inter, sans-serif; max-width: 600px; margin: 0 auto; background: #0d1117; color: #e6edf3; padding: 32px; border-radius: 12px;">
           <h1 style="color: #2dd4bf; font-size: 24px;">We've received your request, ${data.name.split(" ")[0]}.</h1>
           <p style="color: #8b949e; line-height: 1.7;">
-            Thank you for reaching out to OrbitAI Systems. Our team will review your consultation request
+            Thank you for reaching out to Orbit DataWorks. Our team will review your consultation request
             and get back to you within 1–2 business days.
           </p>
           <p style="color: #8b949e; line-height: 1.7;">
@@ -83,7 +83,7 @@ export async function sendLeadConfirmationEmail(data: { name: string; email: str
             <a href="https://auriva.im" style="color: #2dd4bf;">auriva.im</a>.
           </p>
           <p style="color: #8b949e; margin-top: 32px;">
-            — The OrbitAI Systems Team
+            — The Orbit DataWorks Team
           </p>
         </div>
       `,

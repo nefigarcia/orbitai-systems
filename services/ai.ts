@@ -4,7 +4,7 @@ import type { Lead } from "@/lib/types";
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export async function summarizeLeadChallenge(lead: Lead): Promise<string> {
-  const prompt = `You are a senior AI automation consultant at OrbitAI Systems. Summarize the following lead's business challenge in 2-3 sentences, identifying the core operational problem and why AI/automation could help.
+  const prompt = `You are a senior AI automation consultant at Orbit DataWorks. Summarize the following lead's business challenge in 2-3 sentences, identifying the core operational problem and why AI/automation could help.
 
 Lead Details:
 - Company: ${lead.company || "Unknown"}
@@ -26,7 +26,7 @@ Provide a concise, professional summary suitable for a sales team.`;
 }
 
 export async function generateAutomationOpportunities(lead: Lead): Promise<string> {
-  const prompt = `You are a senior AI automation consultant at OrbitAI Systems. Based on this lead's profile, identify 3-5 specific automation opportunities that would deliver measurable business value.
+  const prompt = `You are a senior AI automation consultant at Orbit DataWorks. Based on this lead's profile, identify 3-5 specific automation opportunities that would deliver measurable business value.
 
 Lead Profile:
 - Company: ${lead.company || "Unknown"}
@@ -52,7 +52,7 @@ export async function scoreLeadPotential(lead: Lead): Promise<{
   score: number;
   reasoning: string;
 }> {
-  const prompt = `You are a sales analyst at OrbitAI Systems. Score this lead's potential on a scale of 1-10 for AI/automation consulting services.
+  const prompt = `You are a sales analyst at Orbit DataWorks. Score this lead's potential on a scale of 1-10 for AI/automation consulting services.
 
 Lead Profile:
 - Company: ${lead.company || "Unknown"}

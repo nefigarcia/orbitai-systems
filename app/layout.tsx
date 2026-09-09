@@ -15,11 +15,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "OrbitAI Systems — Intelligent Business Automation",
-    template: "%s | OrbitAI Systems",
+    default: "Orbit DataWorks — Intelligent Business Automation",
+    template: "%s | Orbit DataWorks",
   },
   description:
-    "OrbitAI Systems designs AI agents, data dashboards, and enterprise integrations that help businesses automate operations, connect systems, and scale.",
+    "Orbit DataWorks designs AI agents, data dashboards, and enterprise integrations that help businesses automate operations, connect systems, and scale.",
   keywords: [
     "AI automation",
     "AI agents",
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    siteName: "OrbitAI Systems",
-    title: "OrbitAI Systems — Intelligent Business Automation",
+    siteName: "Orbit DataWorks",
+    title: "Orbit DataWorks — Intelligent Business Automation",
     description:
       "We design AI agents, data dashboards, and enterprise integrations that help businesses automate work and scale operations.",
   },

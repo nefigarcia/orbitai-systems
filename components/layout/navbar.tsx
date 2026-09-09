@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -45,21 +46,17 @@ export function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-            <div className="relative w-8 h-8">
-              {/* Outer ring */}
-              <div className="absolute inset-0 rounded-full border border-teal/30 group-hover:border-teal/70 transition-all duration-300" />
-              {/* Orbit path */}
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="7" stroke="oklch(0.72 0.18 195 / 15%)" strokeWidth="1" strokeDasharray="2 3"/>
-                {/* Orbit dot */}
-                <circle cx="23" cy="16" r="2" fill="oklch(0.72 0.18 195)" className="origin-center" />
-              </svg>
-              {/* Center */}
-              <div className="absolute inset-[9px] rounded-full bg-teal/25 group-hover:bg-teal/40 transition-colors duration-300" />
-            </div>
+            <Image
+              src="/Orbit.png"
+              alt="Orbit DataWorks"
+              width={32}
+              height={32}
+              priority
+              className="w-8 h-8 object-contain group-hover:opacity-90 transition-opacity duration-300"
+            />
             <div className="flex flex-col leading-none gap-0.5">
-              <span className="text-white font-semibold text-[13px] tracking-tight">OrbitAI</span>
-              <span className="text-[9px] text-muted-foreground tracking-[0.2em] uppercase">Systems</span>
+              <span className="text-white font-semibold text-[13px] tracking-tight">Orbit</span>
+              <span className="text-[9px] text-muted-foreground tracking-[0.2em] uppercase">DataWorks</span>
             </div>
           </Link>
 

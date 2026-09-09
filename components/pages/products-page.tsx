@@ -24,7 +24,7 @@ export function ProductsPage() {
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
               Software Products Built by
-              <span className="text-teal"> OrbitAI Systems</span>
+              <span className="text-teal"> Orbit DataWorks</span>
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
               Beyond consulting, we build our own software products — each one solving a specific

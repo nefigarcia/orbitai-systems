@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getLeads } from "@/actions/leads";
 import { LeadsTable } from "@/components/admin/leads-table";
 
-export const metadata: Metadata = { title: "Leads | Admin | OrbitAI Systems" };
+export const metadata: Metadata = { title: "Leads | Admin | Orbit DataWorks" };
 
 interface Props {
   searchParams: Promise<{ status?: string; search?: string; page?: string }>;

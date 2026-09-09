@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
@@ -37,15 +38,16 @@ export function LoginPage() {
       <div className="w-full max-w-md px-4">
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-10">
-          <div className="relative w-9 h-9">
-            <div className="absolute inset-0 rounded-full border border-teal/40" />
-            <div className="absolute inset-2 rounded-full bg-teal/20" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-teal" />
-            </div>
-          </div>
+          <Image
+            src="/Orbit.png"
+            alt="Orbit DataWorks"
+            width={36}
+            height={36}
+            priority
+            className="w-9 h-9 object-contain"
+          />
           <div>
-            <p className="text-white font-semibold text-sm">OrbitAI Systems</p>
+            <p className="text-white font-semibold text-sm">Orbit DataWorks</p>
             <p className="text-[10px] text-muted-foreground tracking-widest uppercase">Admin Portal</p>
           </div>
         </div>

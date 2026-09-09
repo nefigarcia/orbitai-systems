@@ -8,7 +8,7 @@ import { ProcessSection } from "@/components/sections/process";
 import { CtaSection } from "@/components/sections/cta";
 
 export const metadata: Metadata = {
-  title: "OrbitAI Systems — Intelligent Business Automation",
+  title: "Orbit DataWorks — Intelligent Business Automation",
   description:
     "We design AI agents, data dashboards, and enterprise integrations that help businesses automate operations, connect systems, and scale.",
 };

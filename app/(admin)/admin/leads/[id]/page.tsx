@@ -7,7 +7,7 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
-export const metadata: Metadata = { title: "Lead Detail | Admin | OrbitAI Systems" };
+export const metadata: Metadata = { title: "Lead Detail | Admin | Orbit DataWorks" };
 
 export default async function LeadDetailPage({ params }: Props) {
   const { id } = await params;

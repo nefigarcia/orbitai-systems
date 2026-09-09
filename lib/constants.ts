@@ -1,4 +1,4 @@
-export const SITE_NAME = "OrbitAI Systems";
+export const SITE_NAME = "Orbit DataWorks";
 export const SITE_TAGLINE = "Intelligent Business Automation";
 export const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://orbitaisystems.com";
 export const AURIVA_URL = process.env.NEXT_PUBLIC_AURIVA_URL || "https://auriva.im";
@@ -146,7 +146,7 @@ export const CASE_STUDIES = [
     industry: "Construction & Manufacturing",
     service: "Enterprise Integrations / Data & Analytics",
     summary:
-      "OrbitAI Systems helped design a data integration and analytics dashboard concept to connect SAP data with actionable business insights.",
+      "Orbit DataWorks helped design a data integration and analytics dashboard concept to connect SAP data with actionable business insights.",
     metrics: [
       { label: "Data Sources Connected", value: "4" },
       { label: "Report Generation Time", value: "−90%" },

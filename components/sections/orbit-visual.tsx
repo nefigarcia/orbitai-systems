@@ -163,7 +163,7 @@ export function OrbitVisual() {
           </div>
           {/* Label */}
           <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] text-teal font-semibold whitespace-nowrap tracking-[0.15em] uppercase">
-            OrbitAI
+            Orbit
           </div>
         </motion.div>
       </div>
