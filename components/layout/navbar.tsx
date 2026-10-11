@@ -45,19 +45,15 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-18">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
+          <Link href="/" className="flex items-center group flex-shrink-0" aria-label="Orbit DataWorks — Home">
             <Image
               src="/Orbit.png"
               alt="Orbit DataWorks"
-              width={32}
-              height={32}
+              width={160}
+              height={48}
               priority
-              className="w-8 h-8 object-contain group-hover:opacity-90 transition-opacity duration-300"
+              className="h-10 lg:h-12 w-auto object-contain group-hover:opacity-90 transition-opacity duration-300"
             />
-            <div className="flex flex-col leading-none gap-0.5">
-              <span className="text-white font-semibold text-[13px] tracking-tight">Orbit</span>
-              <span className="text-[9px] text-muted-foreground tracking-[0.2em] uppercase">DataWorks</span>
-            </div>
           </Link>
 
           {/* Desktop Nav */}

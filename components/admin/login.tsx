@@ -37,19 +37,16 @@ export function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-navy grid-bg">
       <div className="w-full max-w-md px-4">
         {/* Logo */}
-        <div className="flex items-center justify-center gap-3 mb-10">
+        <div className="flex flex-col items-center gap-3 mb-10">
           <Image
             src="/Orbit.png"
             alt="Orbit DataWorks"
-            width={36}
-            height={36}
+            width={240}
+            height={72}
             priority
-            className="w-9 h-9 object-contain"
+            className="h-16 w-auto object-contain"
           />
-          <div>
-            <p className="text-white font-semibold text-sm">Orbit DataWorks</p>
-            <p className="text-[10px] text-muted-foreground tracking-widest uppercase">Admin Portal</p>
-          </div>
+          <p className="text-[10px] text-muted-foreground tracking-widest uppercase">Admin Portal</p>
         </div>
 
         <div className="rounded-2xl border border-white/10 bg-graphite p-8">

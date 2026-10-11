@@ -20,18 +20,15 @@ export function AdminSidebar() {
     <aside className="w-60 flex-shrink-0 border-r border-white/5 bg-graphite flex flex-col min-h-screen">
       {/* Logo */}
       <div className="px-5 py-6 border-b border-white/5">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center justify-between gap-3">
           <Image
             src="/Orbit.png"
             alt="Orbit DataWorks"
-            width={28}
-            height={28}
-            className="w-7 h-7 object-contain"
+            width={160}
+            height={44}
+            className="h-11 w-auto object-contain"
           />
-          <div>
-            <p className="text-white text-xs font-semibold">Orbit DataWorks</p>
-            <p className="text-[9px] text-muted-foreground tracking-widest uppercase">Admin</p>
-          </div>
+          <p className="text-[9px] text-muted-foreground tracking-widest uppercase">Admin</p>
         </div>
       </div>
 

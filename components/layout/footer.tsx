@@ -32,18 +32,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center mb-5">
               <Image
                 src="/Orbit.png"
                 alt="Orbit DataWorks"
-                width={32}
-                height={32}
-                className="w-8 h-8 object-contain flex-shrink-0"
+                width={200}
+                height={56}
+                className="h-14 w-auto object-contain flex-shrink-0"
               />
-              <div className="flex flex-col leading-none gap-0.5">
-                <span className="text-white font-semibold text-[13px] tracking-tight">Orbit DataWorks</span>
-                <span className="text-[9px] text-muted-foreground tracking-[0.2em] uppercase">Intelligent Business Automation</span>
-              </div>
             </div>
 
             <p className="text-sm text-muted-foreground leading-relaxed max-w-[260px] mb-6">
