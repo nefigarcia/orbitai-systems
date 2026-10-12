@@ -283,3 +283,14 @@ export const SERVICE_INTERESTS = [
 ];
 
 export const CONTACT_METHODS = ["Email", "Phone", "Video Call", "Any"];
+
+export const CHALLENGES = [
+  { id: "missed-calls", icon: "📞", label: "Missed calls & leads" },
+  { id: "slow-response", icon: "⚡", label: "Slow lead response" },
+  { id: "manual-scheduling", icon: "📅", label: "Manual scheduling" },
+  { id: "repetitive-admin", icon: "📋", label: "Repetitive admin tasks" },
+  { id: "support-overload", icon: "💬", label: "Customer support overload" },
+  { id: "inconsistent-followup", icon: "🔁", label: "Inconsistent follow-ups" },
+  { id: "disorganized-data", icon: "🗂️", label: "Disorganized data" },
+  { id: "losing-to-competitors", icon: "🏆", label: "Losing jobs to competitors" },
+] as const;

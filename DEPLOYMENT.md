@@ -12,21 +12,21 @@
 
 ## 1. Environment Setup
 
-Copy `.env.example` to `.env.local` and fill in all values:
-
-```bash
-cp .env.example .env.local
-```
+Create a `.env` file in the project root (gitignored) and fill in all values:
 
 Required variables:
 ```
-DATABASE_URL=mysql://user:pass@host:3306/orbitai_db
+DATABASE_URL=mysql://user:pass@host:3306/orbit_db
 NEXTAUTH_SECRET=generate-with-openssl-rand-base64-32
 NEXTAUTH_URL=https://your-domain.com
 RESEND_API_KEY=re_xxxxx
 RESEND_FROM_EMAIL=noreply@yourdomain.com
+RESEND_FROM_NAME=Orbit DataWorks
 NOTIFICATION_EMAIL=hello@yourdomain.com
 OPENAI_API_KEY=sk-xxxxx
+VAPI_API_KEY=xxxxx
+VAPI_PHONE_NUMBER_ID=xxxxx
+VAPI_ASSISTANT_ID=xxxxx
 NEXT_PUBLIC_APP_URL=https://your-domain.com
 NEXT_PUBLIC_AURIVA_URL=https://auriva.im
 ```
