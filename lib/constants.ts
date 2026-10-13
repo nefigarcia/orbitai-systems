@@ -135,6 +135,22 @@ export const PRODUCTS = [
       "Delivery management",
     ],
   },
+  {
+    id: "orbit-guard-ai",
+    name: "Orbit Guard AI",
+    tagline: "AI Security & Monitoring Platform",
+    description:
+      "Orbit Guard AI watches over your business systems — detecting anomalies, flagging suspicious activity, and alerting your team in real time so threats are caught before they become incidents.",
+    url: "https://guardai.orbitsystems.im/",
+    color: "from-rose-500 to-red-600",
+    features: [
+      "Real-time threat detection",
+      "Anomaly monitoring",
+      "Access & activity logging",
+      "Automated alerting",
+      "Incident timeline & audit trail",
+    ],
+  },
 ];
 
 export const CASE_STUDIES = [

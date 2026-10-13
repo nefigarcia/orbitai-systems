@@ -13,6 +13,7 @@ const FOOTER_LINKS = {
   ],
   Products: [
     { label: "Auriva", href: AURIVA_URL, external: true },
+    { label: "Orbit Guard AI", href: "https://guardai.orbitsystems.im/", external: true },
     { label: "HealthAI", href: "/products#healthai" },
     { label: "WoodCraft OS", href: "/products#woodcraft-os" },
   ],
