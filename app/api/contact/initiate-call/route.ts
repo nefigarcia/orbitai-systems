@@ -93,6 +93,17 @@ export async function POST(req: NextRequest) {
     if (vapiResult.status === "fulfilled") {
       callScheduled = true;
       vapiCallId = vapiResult.value.id;
+      await db.auditSession.create({
+        data: {
+          leadId: lead.id,
+          vapiCallId: vapiResult.value.id,
+          status: "CALL_INITIATED",
+        },
+      });
+      await db.lead.update({
+        where: { id: lead.id },
+        data: { status: "CALL_SCHEDULED" },
+      });
       await db.activityLog.create({
         data: {
           leadId: lead.id,

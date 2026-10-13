@@ -33,6 +33,7 @@ model Lead {
   budgetRange            String?
   preferredContactMethod String?
   status                 LeadStatus @default(NEW)
+  qualificationScore     Int?
   source                 String?    @default("website")
   notes                  String?    @db.Text
   aiSummary              String?    @db.Text
@@ -40,9 +41,68 @@ model Lead {
   createdAt              DateTime   @default(now())
   updatedAt              DateTime   @updatedAt
 
-  activityLogs ActivityLog[]
+  activityLogs  ActivityLog[]
+  auditSessions AuditSession[]
 
   @@map("leads")
+}
+
+model AuditSession {
+  id           String        @id @default(cuid())
+  leadId       String
+  vapiCallId   String?       @unique
+  status       SessionStatus @default(PENDING)
+  startedAt    DateTime?
+  completedAt  DateTime?
+  duration     Int?
+  errorMessage String?       @db.Text
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  lead       Lead             @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  transcript CallTranscript?
+  report     AIReport?
+
+  @@index([leadId])
+  @@index([vapiCallId])
+  @@map("audit_sessions")
+}
+
+model CallTranscript {
+  id            String   @id @default(cuid())
+  sessionId     String   @unique
+  rawTranscript String   @db.LongText
+  summary       String?  @db.Text
+  extractedData Json?
+  callDuration  Int?
+  recordingUrl  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  session AuditSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("call_transcripts")
+}
+
+model AIReport {
+  id                    String    @id @default(cuid())
+  sessionId             String    @unique
+  executiveSummary      String    @db.Text
+  bottlenecks           Json
+  opportunities         Json
+  estimatedROI          Json
+  implementationRoadmap Json
+  recommendedSystems    Json
+  htmlContent           String    @db.LongText
+  qualificationScore    Int
+  sentAt                DateTime?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  session AuditSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([qualificationScore])
+  @@map("ai_reports")
 }
 
 model ContactSubmission {
@@ -137,9 +197,23 @@ enum UserRole {
 
 enum LeadStatus {
   NEW
+  CALL_SCHEDULED
+  CALL_IN_PROGRESS
+  CALL_COMPLETED
+  REPORT_GENERATED
+  REPORT_SENT
   CONTACTED
   QUALIFIED
   PROPOSAL_SENT
   WON
   LOST
+}
+
+enum SessionStatus {
+  PENDING
+  CALL_INITIATED
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  CANCELLED
 }

@@ -36,3 +36,33 @@ export const wizardContactSchema = z.object({
 });
 
 export type WizardContactValues = z.infer<typeof wizardContactSchema>;
+
+const vapiCallObject = z.object({
+  id: z.string(),
+  status: z.string().optional(),
+  transcript: z.string().optional(),
+  summary: z.string().optional(),
+  endedReason: z.string().optional(),
+  duration: z.number().optional(),
+  recordingUrl: z.string().optional(),
+});
+
+const vapiArtifact = z.object({
+  transcript: z.string().optional(),
+  recordingUrl: z.string().optional(),
+});
+
+export const vapiWebhookSchema = z.object({
+  message: z.object({
+    type: z.string(),
+    call: vapiCallObject.optional(),
+    artifact: vapiArtifact.optional(),
+    summary: z.string().optional(),
+    transcript: z.string().optional(),
+  }),
+});
+
+export const reportGenerateSchema = z.object({
+  sessionId: z.string().cuid(),
+  internalSecret: z.string(),
+});
