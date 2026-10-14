@@ -68,7 +68,17 @@ export async function initiateConsultationCall(params: CallLeadParams): Promise<
     throw new Error("VAPI configuration missing");
   }
 
-  const payload = {
+  const webhookBase = process.env.VAPI_WEBHOOK_URL || process.env.NEXT_PUBLIC_APP_URL || "";
+  const webhookUrl = webhookBase ? `${webhookBase.replace(/\/+$/, "")}/api/vapi/webhook` : null;
+  const webhookSecret = process.env.VAPI_WEBHOOK_SECRET;
+
+  if (!webhookUrl) {
+    console.warn("[Vapi] No webhook URL configured — call-ended events will go to the Vapi assistant's default server, not Orbit DataWorks. Set VAPI_WEBHOOK_URL (or NEXT_PUBLIC_APP_URL) to a public URL.");
+  } else if (/^https?:\/\/(localhost|127\.0\.0\.1)/i.test(webhookUrl)) {
+    console.warn(`[Vapi] Webhook URL points at localhost (${webhookUrl}). Vapi can't reach this — expose with ngrok and set VAPI_WEBHOOK_URL to the public URL.`);
+  }
+
+  const payload: Record<string, unknown> = {
     phoneNumberId,
     assistantId,
     customer: {
@@ -87,6 +97,13 @@ export async function initiateConsultationCall(params: CallLeadParams): Promise<
       leadId: params.leadId,
     },
   };
+
+  if (webhookUrl) {
+    payload.server = {
+      url: webhookUrl,
+      ...(webhookSecret ? { secret: webhookSecret } : {}),
+    };
+  }
 
   const res = await fetch(`${VAPI_BASE_URL}/call/phone`, {
     method: "POST",
