@@ -78,6 +78,22 @@ export async function initiateConsultationCall(params: CallLeadParams): Promise<
     console.warn(`[Vapi] Webhook URL points at localhost (${webhookUrl}). Vapi can't reach this — expose with ngrok and set VAPI_WEBHOOK_URL to the public URL.`);
   }
 
+  const assistantOverrides: Record<string, unknown> = {
+    variableValues: {
+      leadName: params.leadName,
+      businessName: params.company,
+      industry: params.industry,
+      mainChallenge: params.mainChallenge,
+    },
+  };
+
+  if (webhookUrl) {
+    assistantOverrides.server = {
+      url: webhookUrl,
+      ...(webhookSecret ? { secret: webhookSecret } : {}),
+    };
+  }
+
   const payload: Record<string, unknown> = {
     phoneNumberId,
     assistantId,
@@ -85,25 +101,11 @@ export async function initiateConsultationCall(params: CallLeadParams): Promise<
       number: toE164(params.phoneNumber),
       name: params.leadName,
     },
-    assistantOverrides: {
-      variableValues: {
-        leadName: params.leadName,
-        businessName: params.company,
-        industry: params.industry,
-        mainChallenge: params.mainChallenge,
-      },
-    },
+    assistantOverrides,
     metadata: {
       leadId: params.leadId,
     },
   };
-
-  if (webhookUrl) {
-    payload.server = {
-      url: webhookUrl,
-      ...(webhookSecret ? { secret: webhookSecret } : {}),
-    };
-  }
 
   const res = await fetch(`${VAPI_BASE_URL}/call/phone`, {
     method: "POST",
