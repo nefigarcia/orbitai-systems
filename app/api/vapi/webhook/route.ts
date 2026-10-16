@@ -4,7 +4,6 @@ import { vapiWebhookSchema } from "@/lib/validations";
 
 export const maxDuration = 90;
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "";
 const INTERNAL_SECRET = process.env.INTERNAL_API_SECRET ?? "";
 
 export async function POST(req: NextRequest) {
@@ -105,8 +104,9 @@ export async function POST(req: NextRequest) {
           },
         });
 
+        const origin = req.nextUrl.origin;
         try {
-          const reportRes = await fetch(`${APP_URL}/api/reports/generate`, {
+          const reportRes = await fetch(`${origin}/api/reports/generate`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -114,9 +114,11 @@ export async function POST(req: NextRequest) {
               internalSecret: INTERNAL_SECRET,
             }),
           });
+          const bodyText = await reportRes.text();
           console.log(
             "[Vapi webhook] Report generation triggered:",
-            reportRes.status
+            reportRes.status,
+            bodyText.slice(0, 300)
           );
         } catch (err) {
           console.error(

@@ -7,7 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_NAME = process.env.RESEND_FROM_NAME || "Orbit DataWorks";
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
 const FROM = `${FROM_NAME} <${FROM_EMAIL}>`;
-const NOTIFY = process.env.NOTIFICATION_EMAIL || FROM_EMAIL;
+const NOTIFY = process.env.NOTIFICATION_EMAIL || null;
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 const CALENDLY = process.env.NEXT_PUBLIC_CALENDLY_URL || `${APP_URL}/contact`;
 
@@ -49,7 +49,7 @@ export async function sendAuditReport(params: {
   const result = await resend.emails.send({
     from: FROM,
     to: toEmail,
-    bcc: NOTIFY !== toEmail ? NOTIFY : undefined,
+    bcc: NOTIFY && NOTIFY !== toEmail ? NOTIFY : undefined,
     subject: `Your AI Automation Audit — ${businessName}`,
     html: previewHtml,
   });
@@ -107,6 +107,10 @@ function escapeHtml(s: string): string {
 }
 
 export async function sendLeadNotificationEmail(data: ContactFormValues & { id: string }) {
+  if (!NOTIFY) {
+    console.log("[Resend] NOTIFICATION_EMAIL unset — skipping admin notification");
+    return null;
+  }
   const result = await resend.emails.send({
     from: FROM,
     to: NOTIFY,
