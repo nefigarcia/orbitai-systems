@@ -51,7 +51,7 @@ export function CtaSection() {
                 href="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-teal text-[oklch(0.08_0.01_240)] font-semibold text-[0.9rem] hover:bg-[oklch(0.78_0.18_195)] transition-all duration-200 teal-glow shadow-[0_1px_0_oklch(1_0_0/25%)_inset]"
               >
-                Book a Consultation
+                Free AI Audit
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <a

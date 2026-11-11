@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { wizardContactSchema, type WizardContactValues } from "@/lib/validations";
 import { INDUSTRIES, COMPANY_SIZES, CHALLENGES, AURIVA_URL } from "@/lib/constants";
+import { trackAuditStarted, trackLead } from "@/lib/meta-pixel";
 
 type StepKey = "contact" | "business" | "challenges" | "processing" | "success";
 
@@ -174,6 +175,7 @@ export function ContactPage() {
       });
       const body = (await res.json().catch(() => ({}))) as {
         success?: boolean;
+        leadId?: string;
         callScheduled?: boolean;
         vapiCallId?: string | null;
         error?: string;
@@ -184,6 +186,9 @@ export function ContactPage() {
         setPhase("challenges");
         return;
       }
+
+      // Audit request confirmed by the backend — counts as a Lead even if the call later fails.
+      trackLead(body.leadId);
 
       setCallScheduled(Boolean(body.callScheduled));
       setVapiCallId(body.vapiCallId ?? null);
@@ -323,7 +328,10 @@ export function ContactPage() {
           </AnimatePresence>
 
           {/* Card */}
-          <div className="relative rounded-2xl border border-white/8 bg-graphite overflow-hidden">
+          <div
+            className="relative rounded-2xl border border-white/8 bg-graphite overflow-hidden"
+            onFocusCapture={trackAuditStarted}
+          >
             {/* Shimmer top edge */}
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-teal/40 to-transparent" />
 

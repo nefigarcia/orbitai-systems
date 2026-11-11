@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { OrbitVisual } from "./orbit-visual";
-import { AURIVA_URL } from "@/lib/constants";
 
 const METRICS = [
   { value: "AI Agents", sub: "Deployed" },
@@ -60,18 +59,9 @@ export function HeroSection() {
                   href="/contact"
                   className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-teal text-[oklch(0.08_0.01_240)] font-semibold text-sm hover:bg-[oklch(0.78_0.18_195)] transition-all duration-200 teal-glow shadow-[0_1px_0_oklch(1_0_0/25%)_inset]"
                 >
-                  Book a Consultation
+                  Free AI Audit
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </Link>
-                <a
-                  href={AURIVA_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-white/12 bg-white/3 text-white hover:bg-white/6 hover:border-white/20 transition-all duration-200 text-sm font-medium"
-                >
-                  Get a Free AI Audit
-                  <ExternalLink className="w-3.5 h-3.5 text-muted-foreground" />
-                </a>
               </div>
 
               {/* Metrics strip */}

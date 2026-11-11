@@ -99,7 +99,7 @@ export function Navbar() {
               href="/contact"
               className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-teal text-[oklch(0.08_0.01_240)] text-sm font-semibold hover:bg-[oklch(0.78_0.18_195)] transition-all duration-200 teal-glow-xs shadow-[0_1px_0_oklch(1_0_0/20%)_inset]"
             >
-              Book Consultation
+              Free AI Audit
             </Link>
           </div>
 
@@ -155,7 +155,7 @@ export function Navbar() {
                   href="/contact"
                   className="flex items-center justify-center px-4 py-3 rounded-lg bg-teal text-[oklch(0.08_0.01_240)] text-sm font-semibold"
                 >
-                  Book Consultation
+                  Free AI Audit
                 </Link>
               </div>
             </div>

@@ -100,7 +100,7 @@ export function Footer() {
             href="/contact"
             className="text-xs text-teal/70 hover:text-teal transition-colors duration-200"
           >
-            Book a Consultation →
+            Free AI Audit →
           </Link>
         </div>
       </div>

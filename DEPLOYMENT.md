@@ -31,6 +31,19 @@ NEXT_PUBLIC_APP_URL=https://your-domain.com
 NEXT_PUBLIC_AURIVA_URL=https://auriva.im
 ```
 
+Meta tracking (optional — the site works without them):
+```
+# Browser Pixel (Events Manager → Orbit dataset → Dataset ID). Enables PageView, AuditStarted, Lead.
+NEXT_PUBLIC_META_PIXEL_ID=123456789012345
+# Conversions API (server). Events Manager → dataset → Settings → Generate access token.
+# Leave unset to disable server events. Never prefix with NEXT_PUBLIC_.
+META_CAPI_ACCESS_TOKEN=xxxxx
+# Only while testing: the code shown in Events Manager → Test Events. Remove in production.
+META_CAPI_TEST_EVENT_CODE=TEST12345
+# Optional Graph API version override (default v24.0).
+META_GRAPH_API_VERSION=v24.0
+```
+
 ---
 
 ## 2. Database Setup

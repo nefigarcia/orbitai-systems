@@ -1,6 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import { db } from "@/lib/db";
 import { wizardContactSchema } from "@/lib/validations";
+import { getMetaRequestContext, sendMetaServerEvent } from "@/lib/meta-capi";
+import { LEAD_EVENT_PARAMS, metaLeadEventId } from "@/lib/meta-pixel";
 import { initiateConsultationCall } from "@/services/vapi";
 import { sendLeadNotificationEmail, sendLeadConfirmationEmail } from "@/services/email";
 
@@ -140,6 +142,19 @@ export async function POST(req: NextRequest) {
     } else {
       console.log("[Resend] Lead confirmation sent");
     }
+
+    // Server copy of the browser Lead (same eventID → Meta deduplicates). Runs after the response.
+    const metaContext = getMetaRequestContext(req);
+    after(() =>
+      sendMetaServerEvent({
+        eventName: "Lead",
+        eventId: metaLeadEventId(lead.id),
+        actionSource: "website",
+        user: { email: data.email, phone: data.phone, externalId: lead.id },
+        context: metaContext,
+        customData: { ...LEAD_EVENT_PARAMS },
+      })
+    );
 
     return NextResponse.json({
       success: true,

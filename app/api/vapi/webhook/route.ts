@@ -1,6 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import { db } from "@/lib/db";
 import { vapiWebhookSchema } from "@/lib/validations";
+import { sendMetaServerEvent } from "@/lib/meta-capi";
+import { LEAD_EVENT_PARAMS, metaCallCompletedEventId } from "@/lib/meta-pixel";
 
 export const maxDuration = 90;
 
@@ -103,6 +105,21 @@ export async function POST(req: NextRequest) {
             details: JSON.stringify({ duration, hasTranscript: true }),
           },
         });
+
+        // Funnel stage for Meta (server-only; eventID dedupes repeated end-of-call webhooks).
+        after(() =>
+          sendMetaServerEvent({
+            eventName: "AuditCallCompleted",
+            eventId: metaCallCompletedEventId(session.id),
+            actionSource: "phone_call",
+            user: {
+              email: session.lead.email,
+              phone: session.lead.phone,
+              externalId: session.leadId,
+            },
+            customData: { content_name: LEAD_EVENT_PARAMS.content_name },
+          })
+        );
 
         const origin = req.nextUrl.origin;
         try {
