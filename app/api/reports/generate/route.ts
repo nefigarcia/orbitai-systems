@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import { db } from "@/lib/db";
 import { reportGenerateSchema } from "@/lib/validations";
 import { analyzeTranscript, generateReportHTML } from "@/services/audit";
@@ -47,13 +47,27 @@ export async function POST(req: NextRequest) {
 
   const lead = session.lead;
 
-  const analysis = await analyzeTranscript({
-    transcript: session.transcript.rawTranscript,
-    businessName: lead.company ?? lead.name,
-    industry: lead.industry ?? "Unknown",
-    companySize: lead.companySize ?? "Unknown",
-    mainChallenge: lead.currentChallenge ?? "Not specified",
-  });
+  let analysis: Awaited<ReturnType<typeof analyzeTranscript>>;
+  try {
+    analysis = await analyzeTranscript({
+      transcript: session.transcript.rawTranscript,
+      businessName: lead.company ?? lead.name,
+      industry: lead.industry ?? "Unknown",
+      companySize: lead.companySize ?? "Unknown",
+      mainChallenge: lead.currentChallenge ?? "Not specified",
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[reports/generate] AI analysis failed:", message);
+    await db.activityLog.create({
+      data: {
+        leadId: lead.id,
+        action: "REPORT_FAILED",
+        details: `AI analysis failed: ${message}`.slice(0, 500),
+      },
+    });
+    return NextResponse.json({ error: "AI analysis failed" }, { status: 502 });
+  }
 
   const htmlContent = generateReportHTML(
     analysis,
@@ -131,12 +145,15 @@ export async function POST(req: NextRequest) {
   }
 
   if (analysis.qualificationScore >= 50) {
-    sendConsultationInvite({
-      toEmail: lead.email,
-      toName: lead.name,
-      businessName: lead.company ?? lead.name,
-    }).catch((err) =>
-      console.error("[reports/generate] Consultation invite failed:", err)
+    // after() keeps the function alive until the email is sent; a bare promise is dropped on Vercel.
+    after(() =>
+      sendConsultationInvite({
+        toEmail: lead.email,
+        toName: lead.name,
+        businessName: lead.company ?? lead.name,
+      }).catch((err) =>
+        console.error("[reports/generate] Consultation invite failed:", err)
+      )
     );
   }
 
